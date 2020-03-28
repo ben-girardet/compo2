@@ -1,0 +1,31 @@
+<template>
+  <require from="./app.css"></require>
+  <h1>CustomAttribute and CompositionEngine issue.</h1>
+  <p>This app showcase an issue that I'm currently facing when using customAttribute inside a view dynamically loaded from the compositionEngine.compose() api.</h1>
+  <p>Below are a few different ways to load the same ViewModel (Hello). In its view there is a simple custom attribute (make-me-red) that set the paragraph color to red.</p>
+  <p>The customAttribute <strong>doesn't work</strong> when the view is loaded from the <strong>composition engine.</strong></p>
+  <section>
+    <h2>1. Loading with &lt;hello&gt; tag works normally</h2>
+    <hello></hello>
+  </section>
+  <section>
+    <h2>2. Loading with &lt;compose&gt; tag works as well</h2>
+    <compose view-model="resources/hello"></compose>
+    <small>I am the host</small>
+  </section>
+  <section>
+    <h2>3. Composition Engine (like drawer)</h2>
+    <p>I am facing this issue in a context like this one when working on the new Drawer/Dialog component of Aurelia Ux</p>
+    <div ref="anchor1"></div>
+  </section>
+  <section>
+    <h2>4. Composition Engine (simplified)</h2>
+    <p>Here is a simplified code demonstrating the same issue.</p>
+    <div ref="anchor2"></div>
+  </section>
+  
+  
+  
+  
+</template>
+

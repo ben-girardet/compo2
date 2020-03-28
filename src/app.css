@@ -1,0 +1,23 @@
+body {
+  font-family: "Helvetica Neue", "Arial";
+}
+
+h1 {
+  font-size: 18px;
+  text-decoration: underline;
+}
+h2 {
+  font-size: 16px;
+}
+p {
+  font-size: 16px;
+}
+section {
+  margin: 24px;
+  padding: 16px;
+  background: #dadada;
+}
+.hello {
+  border: 1px solid #333;
+  padding: 16px;
+}
