@@ -1,14 +1,16 @@
 import { TemplatingEngine, CompositionEngine, ViewSlot, CompositionContext, Controller } from 'aurelia-templating';
 import { Hello } from 'resources/hello';
-import { inject, Container } from 'aurelia-framework';
+import { inject, Container, ViewResources } from 'aurelia-framework';
 
-@inject(Container, TemplatingEngine, CompositionEngine)
+@inject(Container, ViewResources , TemplatingEngine, CompositionEngine)
 export class App {
   public anchor1: HTMLElement;
   public anchor2: HTMLElement;
+  public anchor3: HTMLElement;
 
   constructor(
     private container: Container,
+    private viewResources: ViewResources,
     private templatingEngine: TemplatingEngine, 
     private compositionEngine: CompositionEngine) {
 
@@ -20,7 +22,8 @@ export class App {
   
   public attached() {
     this.composeWithEnhance(); 
-    this.composeOnly(); 
+    this.composeOnly();
+    this.composeOnlyWithHTML();
   }
 
   /** The following code is a mirror of the current drawer implementation */
@@ -47,6 +50,17 @@ export class App {
     compositionContext = await this.ensureViewModel(compositionContext);
     this.compositionEngine.compose(compositionContext);
   }
+  
+  /** 
+   * The following code is a simplification with only the compose()
+   * It has the same issue with customAttribute
+   **/
+  public async composeOnlyWithHTML() {
+    const bindingContext: any = {};
+    let compositionContext = this.createCompositionContext(this.container, this.anchor3, bindingContext, { view: 'resources/hello.html' });
+    compositionContext = await this.ensureViewModel(compositionContext);
+    this.compositionEngine.compose(compositionContext);
+  }
 
   private createCompositionContext(
     container: any, 
@@ -55,11 +69,10 @@ export class App {
     settings: {model?: any, view?: any, viewModel?: any},
     slot? : ViewSlot
     ): CompositionContext {
-      console.log('createCompositionContext');
     return {
       container,
       bindingContext: settings.viewModel ? null : bindingContext,
-      viewResources: null as any,
+      viewResources: this.viewResources,
       model: settings.model,
       view: settings.view,
       viewModel: settings.viewModel,
@@ -79,4 +92,5 @@ export class App {
   }
   
 }
+
 
